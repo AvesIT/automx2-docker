@@ -1,14 +1,17 @@
 on: [push]
 
 jobs:
-  build-secure-and-push:
+  build-scan-and-push-main:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:latest 
+    - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:latest
+      env:
+        DOCKER_CONTENT_TRUST: 1
       
     - uses: Azure/container-scan@v0
       with:
@@ -23,3 +26,34 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: docker push registry.aves-it.nl/automx/automx2
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+  build-scan-and-push-branch:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+    - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:${GITHUB_REF##*/}
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+    - uses: Azure/container-scan@v0
+      with:
+        image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
+   
+    - uses: Azure/docker-login@v1
+      env:
+        DOCKER_CONTENT_TRUST: 1
+      with:
+        login-server: registry.aves-it.nl
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+   
+    - run: docker push registry.aves-it.nl/automx/automx2
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
