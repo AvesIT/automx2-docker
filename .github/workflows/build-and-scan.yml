@@ -8,7 +8,7 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }}
+    - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:latest 
       
     - uses: Azure/container-scan@v0
       with:
@@ -22,4 +22,4 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
-    - run: docker push registry.aves-it.nl/automx/automx2:${{ github.sha }}
+    - run: docker push registry.aves-it.nl/automx/automx2
