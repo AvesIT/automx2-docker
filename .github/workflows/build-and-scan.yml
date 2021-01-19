@@ -4,9 +4,9 @@ jobs:
   build-secure-and-push:
     runs-on: ubuntu-latest
     steps:
-    env:
-      DOCKER_CONTENT_TRUST: 1
     - uses: actions/checkout@master
+      env:
+        DOCKER_CONTENT_TRUST: 1
 
     - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }}
       
@@ -15,6 +15,8 @@ jobs:
         image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
     
     - uses: Azure/docker-login@v1
+      env:
+        DOCKER_CONTENT_TRUST: 1
       with:
         login-server: registry.aves-it.nl
         username: ${{ secrets.REGISTRY_USERNAME }}
