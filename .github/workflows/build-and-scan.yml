@@ -4,6 +4,8 @@ jobs:
   build-secure-and-push:
     runs-on: ubuntu-latest
     steps:
+    env:
+      DOCKER_CONTENT_TRUST: 1
     - uses: actions/checkout@master
 
     - run: docker build . -t registry.aves-it.nl/automx/automx2:${{ github.sha }}
