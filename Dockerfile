@@ -3,7 +3,7 @@ LABEL maintainer="n.vogels@aves-it.nl"
 
 ENV AUTOMX2_VERSION 2021.0
 
-RUN useradd -d /home/automx2 -m -s /bin/bash automx2
+RUN adduser automx2
 USER automx2
 RUN apk add --no-cache bash curl \
     && mkdir -p /srv/web/automx2 \
