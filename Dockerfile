@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python:3.9-alpine3.12
 LABEL maintainer="n.vogels@aves-it.nl"
 
 ENV AUTOMX2_VERSION 2021.0
