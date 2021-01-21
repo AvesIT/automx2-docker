@@ -1,0 +1,57 @@
+on: [push]
+name: public-build-scan-and-push
+jobs:
+  build-scan-and-push-main:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+    - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:latest
+      env:
+        DOCKER_CONTENT_TRUST: 1
+      
+    - uses: Azure/container-scan@v0
+      with:
+        image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
+    
+    - uses: Azure/docker-login@v1
+      env:
+        DOCKER_CONTENT_TRUST: 1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    
+    - run: docker push avesit/automx2
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+  build-scan-and-push-branch:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+    - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t avesit/automx2:${GITHUB_REF##*/}
+      env:
+        DOCKER_CONTENT_TRUST: 1
+
+    - uses: Azure/container-scan@v0
+      with:
+        image-name: avesit/automx2:${{ github.sha }}
+   
+    - uses: Azure/docker-login@v1
+      env:
+        DOCKER_CONTENT_TRUST: 1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+   
+    - run: docker push avesit/automx2
+      env:
+        DOCKER_CONTENT_TRUST: 1
+

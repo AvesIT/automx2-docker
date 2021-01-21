@@ -1,5 +1,5 @@
 on: [push]
-name: build-scan-and-push
+name: private-build-scan-and-push
 jobs:
   build-scan-and-push-main:
     if: github.ref == 'refs/heads/main'
