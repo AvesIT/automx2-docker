@@ -37,4 +37,6 @@ RUN apk add --no-cache bash curl musl>1.1.24-r10 \
 
 USER automx2
 WORKDIR /srv/web/automx2
+ADD files/automx2.conf /etc/
+VOLUME /srv/web/automx2/data
 CMD ./venv/scripts/flask.sh run --host=0.0.0.0 --port=5000
