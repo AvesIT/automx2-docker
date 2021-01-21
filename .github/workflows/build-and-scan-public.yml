@@ -13,13 +13,17 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t avesit/automx2:latest
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+                        --build-arg VCS_REF=${{ github.sha }} \
+                        --tag avesit/automx2:${{ github.sha }} \
+                        --tag avesit/automx2:latest \
+                        docker/
       env:
         DOCKER_CONTENT_TRUST: 1
       
     - uses: Azure/container-scan@v0
       with:
-        image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
+        image-name: avesit/automx2:${{ github.sha }}
     
     - uses: Azure/docker-login@v1
       env:
@@ -41,6 +45,13 @@ jobs:
         DOCKER_CONTENT_TRUST: 1
 
     - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t avesit/automx2:${GITHUB_REF##*/}
+
+
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+                        --build-arg VCS_REF=${{ github.sha }} \
+                        --tag avesit/automx2:${{ github.sha }} \
+                        --tag avesit/automx2:${GITHUB_REG##*/} \
+                        docker/
       env:
         DOCKER_CONTENT_TRUST: 1
 

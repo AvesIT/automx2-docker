@@ -1,10 +1,22 @@
 FROM python:3.9-alpine3.12
-LABEL maintainer="n.vogels@aves-it.nl"
+ARG BUILD_DATE
+ARG VCS_REF
 
 ENV AUTOMX2_VERSION 2021.0
 ENV USER=automx2
 ENV UID=1000
 ENV GID=1000
+
+LABEL maintainer="n.vogels@aves-it.nl"
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="AutoMX2" \
+      org.label-schema.description="AutoMX2 docker container - Automx is a way to autoconfigure mailclients" \
+      org.label-schema.url="https://www.automx.org/" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/avesit/automx2-docker" \
+      org.label-schema.vendor="automx" \
+      org.label-schema.version=$AUTOMX2_VERSION \
+      org.label-schema.schema-version="1.0"
 
 RUN addgroup $USER
 RUN adduser \
