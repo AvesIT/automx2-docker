@@ -2,7 +2,7 @@ on:
   push:
     paths:
     - 'docker/**'
-    - '.github/workflows/*public.yml'
+    - '.github/workflows/*private.yml'
 name: private-build-scan-and-push
 jobs:
   build-scan-and-push-main:
