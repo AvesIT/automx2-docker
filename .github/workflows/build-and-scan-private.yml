@@ -13,10 +13,10 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-                        --build-arg VCS_REF=${{ github.sha }} \
-                        --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} \
-                        --tag registry.aves-it.nl/automx/automx2:latest \
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+                        --build-arg VCS_REF=${{ github.sha }} 
+                        --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} 
+                        --tag registry.aves-it.nl/automx/automx2:latest 
                         docker/
       env:
         DOCKER_CONTENT_TRUST: 1
@@ -45,10 +45,10 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-                        --build-arg VCS_REF=${{ github.sha }} \
-                        --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} \
-                        --tag registry.aves-it.nl/automx/automx2:${GITHUB_REF##*/} \
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+                        --build-arg VCS_REF=${{ github.sha }} 
+                        --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} 
+                        --tag registry.aves-it.nl/automx/automx2:${GITHUB_REF##*/} 
                         docker/
       env:
         DOCKER_CONTENT_TRUST: 1
