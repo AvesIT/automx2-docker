@@ -1,4 +1,8 @@
-on: [push]
+on: 
+  push:
+    paths:
+    - 'docker/**'
+    - '.github/workflows/*public.yml'
 name: public-build-scan-and-push
 jobs:
   build-scan-and-push-main:
