@@ -9,7 +9,7 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t registry.aves-it.nl/automx/automx2:latest
+    - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t avesit/automx2:latest
       env:
         DOCKER_CONTENT_TRUST: 1
       
