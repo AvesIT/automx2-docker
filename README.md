@@ -1,8 +1,8 @@
 # AutoMX2 Docker Container Image
 
 [![Build Status](https://github.com/avesit/automx2-docker/workflows/build-scan-and-push/badge.svg)](https://github.com/avesit/automx2-docker/actions)
-[![Docker Pulls]Todo
-[![Docker Stars]Todo
+[![Docker Pulls](https://img.shields.io/docker/pulls/avesit/automx2.svg)](https://hub.docker.com/r/avesit/automx2)
+[![Docker Stars](https://img.shield.io/docker/stars/avesit/automx2.svg)](https://hub.docker.com/r/avesit/automx2)
 [![Docker Layers]Todo
 
 ## Docker images
