@@ -27,7 +27,7 @@ RUN adduser \
     --uid "$UID" \
     "$USER"
 
-RUN apk add --no-cache bash curl \
+RUN apk add --no-cache bash curl musl>1.1.24-r10 \
     && mkdir -p /srv/web/automx2 \
     && cd /srv/web/automx2 \
     && curl -o ./setupvenv.sh https://gitlab.com/automx/automx2/raw/$AUTOMX2_VERSION/contrib/setupvenv.sh\?inline=false \
