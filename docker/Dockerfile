@@ -7,7 +7,7 @@ ENV USER=automx2
 ENV UID=1000
 ENV GID=1000
 
-LABEL maintainer="n.vogels@aves-it.nl"
+LABEL maintainer="n.vogels@aves-it.nl" \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="AutoMX2" \
       org.label-schema.description="AutoMX2 docker container - Automx is a way to autoconfigure mailclients" \
