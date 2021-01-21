@@ -13,10 +13,10 @@ jobs:
       env:
         DOCKER_CONTENT_TRUST: 1
 
-    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-                        --build-arg VCS_REF=${{ github.sha }} \
-                        --tag avesit/automx2:${{ github.sha }} \
-                        --tag avesit/automx2:latest \
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+                        --build-arg VCS_REF=${{ github.sha }} 
+                        --tag avesit/automx2:${{ github.sha }} 
+                        --tag avesit/automx2:latest 
                         docker/
       env:
         DOCKER_CONTENT_TRUST: 1
@@ -47,10 +47,10 @@ jobs:
     - run: docker build docker/ -t avesit/automx2:${{ github.sha }} -t avesit/automx2:${GITHUB_REF##*/}
 
 
-    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-                        --build-arg VCS_REF=${{ github.sha }} \
-                        --tag avesit/automx2:${{ github.sha }} \
-                        --tag avesit/automx2:${GITHUB_REG##*/} \
+    - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
+                        --build-arg VCS_REF=${{ github.sha }} 
+                        --tag avesit/automx2:${{ github.sha }} 
+                        --tag avesit/automx2:${GITHUB_REG##*/} 
                         docker/
       env:
         DOCKER_CONTENT_TRUST: 1
