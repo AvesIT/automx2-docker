@@ -10,62 +10,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-      env:
-        DOCKER_CONTENT_TRUST: 1
 
     - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
                         --build-arg VCS_REF=${{ github.sha }} 
                         --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} 
                         --tag registry.aves-it.nl/automx/automx2:latest 
                         docker/
-      env:
-        DOCKER_CONTENT_TRUST: 1
       
     - uses: Azure/container-scan@v0
       with:
         image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
     
     - uses: Azure/docker-login@v1
-      env:
-        DOCKER_CONTENT_TRUST: 1
       with:
         login-server: registry.aves-it.nl
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: docker push registry.aves-it.nl/automx/automx2
-      env:
-        DOCKER_CONTENT_TRUST: 1
 
   build-scan-and-push-branch:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-      env:
-        DOCKER_CONTENT_TRUST: 1
 
     - run: docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` 
                         --build-arg VCS_REF=${{ github.sha }} 
                         --tag registry.aves-it.nl/automx/automx2:${{ github.sha }} 
                         --tag registry.aves-it.nl/automx/automx2:${GITHUB_REF##*/} 
                         docker/
-      env:
-        DOCKER_CONTENT_TRUST: 1
 
     - uses: Azure/container-scan@v0
       with:
         image-name: registry.aves-it.nl/automx/automx2:${{ github.sha }}
    
     - uses: Azure/docker-login@v1
-      env:
-        DOCKER_CONTENT_TRUST: 1
       with:
         login-server: registry.aves-it.nl
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
    
     - run: docker push registry.aves-it.nl/automx/automx2
-      env:
-        DOCKER_CONTENT_TRUST: 1
 
